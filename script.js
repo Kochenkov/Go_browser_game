@@ -7,6 +7,7 @@ var Left;//переменная для отрисовки камня
 var Top;//переменная для отрисовки камня
 var colour = 'white';
 var arr = new Array(num+1);
+var fill = "-";
 
 
 // рисовка поля
@@ -30,7 +31,7 @@ for (j=0; j<(num+1); j++) {
 		point.style.left = ind+ i*(wid-1)-ptn/2 + 'px';
 		point.style.top = ind+ j*(wid-1)-ptn/2 + 'px';
 		document.getElementById('div1').appendChild(point);
-		arr[j][i] = "-";
+		arr[j][i] = fill;
 	}	
 }
 console.log(arr);
@@ -45,22 +46,26 @@ document.addEventListener("click", function(e){
 			Top = (ind + j*(wid-1))-stn/2;
 			// условие координаты
 			if  ((e.pageX<(ind + i*(wid-1)+20) && e.pageX>(ind + i*(wid-1)-20)) && (e.pageY<(ind + j*(wid-1)+20) && e.pageY>(ind + j*(wid-1)-20))) {
-				if (colour=='black') {
-					stone.src = 'images/blackStone.gif';
-					stone.style.left = Left + 'px';
-					stone.style.top = Top + 'px';
-					document.getElementById('div1').appendChild(stone);
-					colour = 'white';
-					arr [j][i] = 'b';
+				//нельзя ставить камень на место другого камня
+				if (arr [j][i] == fill) { 
+					if (colour=='black') {
+						stone.src = 'images/blackStone.gif';
+						stone.style.left = Left + 'px';
+						stone.style.top = Top + 'px';
+						document.getElementById('div1').appendChild(stone);
+						colour = 'white';
+						arr [j][i] = 'b';
+					}
+					else {
+						stone.src = 'images/whiteStone.gif';
+						stone.style.left = Left + 'px';
+						stone.style.top = Top + 'px';
+						document.getElementById('div1').appendChild(stone);
+						colour = 'black';
+						arr [j][i] = 'w';
+					}	
 				}
-				else {
-					stone.src = 'images/whiteStone.gif';
-					stone.style.left = Left + 'px';
-					stone.style.top = Top + 'px';
-					document.getElementById('div1').appendChild(stone);
-					colour = 'black';
-					arr [j][i] = 'w';
-				}
+				
 			}
 			
 		}
