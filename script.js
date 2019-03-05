@@ -52,7 +52,6 @@ document.addEventListener("click", function(e){
 					document.getElementById('div1').appendChild(stone);
 					colour = 'white';
 					arr [j][i] = 'b';
-					console.log(arr);
 				}
 				else {
 					stone.src = 'images/whiteStone.gif';
@@ -61,7 +60,6 @@ document.addEventListener("click", function(e){
 					document.getElementById('div1').appendChild(stone);
 					colour = 'black';
 					arr [j][i] = 'w';
-					console.log(arr);
 				}
 			}
 			
