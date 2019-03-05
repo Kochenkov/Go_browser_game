@@ -3,13 +3,11 @@ var wid = 100;//размер клетки
 var ptn = 7;//размер точки
 var stn = 88;//размер камня
 var ind = 100;
-var Left;
-var Top;
+var Left;//переменная для отрисовки камня
+var Top;//переменная для отрисовки камня
 var colour = 'white';
 var arr = new Array(num+1);
-var mjw = 0;
-var mjb = 0;
-var mj;
+
 
 // рисовка поля
 for (j=0; j<num; j++) {
@@ -32,7 +30,7 @@ for (j=0; j<(num+1); j++) {
 		point.style.left = ind+ i*(wid-1)-ptn/2 + 'px';
 		point.style.top = ind+ j*(wid-1)-ptn/2 + 'px';
 		document.getElementById('div1').appendChild(point);
-		arr[j][i] = 1;
+		arr[j][i] = "-";
 	}	
 }
 console.log(arr);
@@ -54,12 +52,7 @@ document.addEventListener("click", function(e){
 					document.getElementById('div1').appendChild(stone);
 					colour = 'white';
 					arr [j][i] = 'b';
-					mj = mjb;
-					mojo();
-					eat();
-					mjb = mj;
-					console.log('черн',mjb);
-					console.log('бел',mjw);
+					console.log(arr);
 				}
 				else {
 					stone.src = 'images/whiteStone.gif';
@@ -68,56 +61,13 @@ document.addEventListener("click", function(e){
 					document.getElementById('div1').appendChild(stone);
 					colour = 'black';
 					arr [j][i] = 'w';
-					mj = mjw;
-					mojo();	
-					eat();
-					mjw = mj;
-					console.log('черн',mjb);
-					console.log('бел',mjw);
+					console.log(arr);
 				}
 			}
 			
 		}
 	}
 	console.log('массив w-b',arr);
-	//eat();
 });
-
-function mojo() {
-	if ((j+1) < (num+1)) {
-		if (typeof arr[j+1][i] == 'number') {mj = mj + arr[j+1][i]}
-		if (typeof arr[j+1][i] == 'string') {mj = mj - 1}
-	}
-	if ((j-1) >= (0)) {
-		if (typeof arr[j-1][i] == 'number') {mj = mj + arr[j-1][i]}
-		if (typeof arr[j-1][i] == 'string') {mj = mj - 1}
-	}
-	if ((i+1) <= (num+1)) {
-		if (typeof arr[j][i+1] == 'number') {mj = mj + arr[j][i+1]}
-		if (typeof arr[j][i+1] == 'string') {mj = mj - 1}
-	}
-	if ((i-1) >= (0)) {	
-		if (typeof arr[j][i-1] == 'number') {mj = mj + arr[j][i-1]}
-		if (typeof arr[j][i-1] == 'string') {mj = mj - 1}
-	}
-}
-
-
-function eat() {
-	for (j=0; j<(num+1); j++) {
-		for (i=0; i<(num+1); i++) {	
-			if (mj<=0) {
-				var empty = document.createElement('img');
-				empty.style.position = 'absolute';
-				Left = (ind + i*(wid-1))-stn/2;
-				Top = (ind + j*(wid-1))-stn/2;
-				empty.src = 'images/noStone.gif';
-				empty.style.left = Left + 'px';
-				empty.style.top = Top + 'px';
-				document.getElementById('div1').appendChild(empty);
-			}
-		}
-	}
-}
 
 
