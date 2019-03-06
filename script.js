@@ -5,9 +5,9 @@ var stn = 88;//размер камня
 var ind = 100;
 var Left;//переменная для отрисовки камня
 var Top;//переменная для отрисовки камня
-var colour = 'white';
+var colour = 'w';
 var arr = new Array(num+1);
-var fill = "-";
+var fill = 1; //используетсяв check, как число
 
 
 // рисовка поля
@@ -23,7 +23,7 @@ for (j=0; j<num; j++) {
 }
 // рисовка точек
 for (j=0; j<(num+1); j++) {
-	arr[j] = new Array(num+1);
+	arr[j] = new Array(num+1); //наполняем массив массивами (почему в этом цикле? а хрен его знает - просто для экономии)
 	for (i=0; i<(num+1); i++) {
 		var point = document.createElement('img');
 		point.src = 'images/point.png';
@@ -48,21 +48,24 @@ document.addEventListener("click", function(e){
 			if  ((e.pageX<(ind + i*(wid-1)+20) && e.pageX>(ind + i*(wid-1)-20)) && (e.pageY<(ind + j*(wid-1)+20) && e.pageY>(ind + j*(wid-1)-20))) {
 				//нельзя ставить камень на место другого камня
 				if (arr [j][i] == fill) { 
-					if (colour=='black') {
+					if (colour=='b') {
 						stone.src = 'images/blackStone.gif';
 						stone.style.left = Left + 'px';
 						stone.style.top = Top + 'px';
 						document.getElementById('div1').appendChild(stone);
-						colour = 'white';
-						arr [j][i] = 'b';
+						arr [j][i] = colour;
+						colour = 'w';
+						mojo(j,i);
+						
 					}
 					else {
 						stone.src = 'images/whiteStone.gif';
 						stone.style.left = Left + 'px';
 						stone.style.top = Top + 'px';
 						document.getElementById('div1').appendChild(stone);
-						colour = 'black';
-						arr [j][i] = 'w';
+						arr [j][i] = colour;
+						colour = 'b';
+						mojo(j,i);
 					}	
 				}
 				
@@ -72,5 +75,21 @@ document.addEventListener("click", function(e){
 	}
 	console.log('массив w-b',arr);
 });
+
+// заготовка на подсчет мойо
+function mojo(a,b) {
+	//if (a<=num && b<=num) {
+	sum = arr[a+1][b] + arr[a-1][b] + arr[a][b+1] + arr[a][b-1];
+	console.log(sum);
+	//}
+	
+}
+//ДОПИСАТЬ (чекидет в функцию выше - это проверка каждой точки)
+function check(a,b){
+	if (arr[a][b]==fill) {
+		
+	}
+}
+
 
 
