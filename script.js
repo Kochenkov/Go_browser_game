@@ -78,16 +78,16 @@ document.addEventListener("click", function(e){
 
 // заготовка на подсчет мойо
 function mojo(a,b) {
-	//if (a<=num && b<=num) {
-	sum = arr[a+1][b] + arr[a-1][b] + arr[a][b+1] + arr[a][b-1];
+	sum = check(a+1,b)+check(a-1,b)+check(a,b+1)+check(a,b-1)
 	console.log(sum);
-	//}
-	
 }
-//ДОПИСАТЬ (чекидет в функцию выше - это проверка каждой точки)
+
 function check(a,b){
 	if (arr[a][b]==fill) {
-		
+		return arr[a][b];
+	}
+	else {
+		return 0;
 	}
 }
 
