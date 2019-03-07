@@ -83,13 +83,17 @@ function mojo(a,b) {
 }
 
 function check(a,b){
-	if (arr[a][b]==fill) {
-		return arr[a][b];
+	if ((a<=num && b<=num)&&(a>=0 && b>=0)) {
+		if (arr[a][b]==fill) {
+			return arr[a][b];
+		}
+		else {
+			return 0;
+		}
 	}
 	else {
 		return 0;
 	}
 }
-
 
 
