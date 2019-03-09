@@ -5,7 +5,9 @@ var stn = 88;//размер камня
 var ind = 100;
 var Left;//переменная для отрисовки камня
 var Top;//переменная для отрисовки камня
-var colour = 'w';
+var white = 'w';
+var black = 'b'
+var colour = white;
 var arr = new Array(num+1);
 var fill = 1; //используетсяв check, как число
 
@@ -54,8 +56,8 @@ document.addEventListener("click", function(e){
 						stone.style.top = Top + 'px';
 						document.getElementById('div1').appendChild(stone);
 						arr [j][i] = colour;
-						colour = 'w';
-						mojo(j,i);
+						mojo(j,i,colour);
+						colour = white;
 						
 					}
 					else {
@@ -64,8 +66,8 @@ document.addEventListener("click", function(e){
 						stone.style.top = Top + 'px';
 						document.getElementById('div1').appendChild(stone);
 						arr [j][i] = colour;
-						colour = 'b';
-						mojo(j,i);
+						mojo(j,i,colour);
+						colour = black;
 					}	
 				}
 				
@@ -77,16 +79,20 @@ document.addEventListener("click", function(e){
 });
 
 // заготовка на подсчет мойо
-function mojo(a,b) {
-	sum = check(a+1,b)+check(a-1,b)+check(a,b+1)+check(a,b-1)
+function mojo(a,b,c) {
+	sum = check(a+1,b,c)+check(a-1,b,c)+check(a,b+1,c)+check(a,b-1,c)
 	console.log(sum);
+	return sum;
 }
 
-function check(a,b){
+function check(a,b,c){
 	if ((a<=num && b<=num)&&(a>=0 && b>=0)) {
 		if (arr[a][b]==fill) {
 			return arr[a][b];
 		}
+		//else if (arr[a][b]==colour) {
+		//	return mojo(a,b,c)
+		//}
 		else {
 			return 0;
 		}
