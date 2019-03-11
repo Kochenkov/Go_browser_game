@@ -9,6 +9,7 @@ var white = 'w';
 var black = 'b'
 var colour = white;
 var arr = new Array(num+1);
+var arrCopy = new Array(num+1);
 var fill = 1; //используетсяв check, как число
 
 
@@ -25,7 +26,9 @@ for (j=0; j<num; j++) {
 }
 // рисовка точек
 for (j=0; j<(num+1); j++) {
-	arr[j] = new Array(num+1); //наполняем массив массивами (почему в этом цикле? а хрен его знает - просто для экономии)
+	//наполняем массив массивами (почему в этом цикле? а хрен его знает - просто для экономии)
+	arr[j] = new Array(num+1);
+	arrCopy[j] = new Array(num+1);
 	for (i=0; i<(num+1); i++) {
 		var point = document.createElement('img');
 		point.src = 'images/point.png';
@@ -34,6 +37,7 @@ for (j=0; j<(num+1); j++) {
 		point.style.top = ind+ j*(wid-1)-ptn/2 + 'px';
 		document.getElementById('div1').appendChild(point);
 		arr[j][i] = fill;
+		arrCopy[j][i] = fill;
 	}	
 }
 console.log(arr);
@@ -56,9 +60,9 @@ document.addEventListener("click", function(e){
 						stone.style.top = Top + 'px';
 						document.getElementById('div1').appendChild(stone);
 						arr [j][i] = colour;
+						returnArray(arr,arrCopy);
 						mojo(j,i,colour);
-						colour = white;
-						
+						colour = white;	
 					}
 					else {
 						stone.src = 'images/whiteStone.gif';
@@ -66,6 +70,7 @@ document.addEventListener("click", function(e){
 						stone.style.top = Top + 'px';
 						document.getElementById('div1').appendChild(stone);
 						arr [j][i] = colour;
+						returnArray(arr,arrCopy);
 						mojo(j,i,colour);
 						colour = black;
 					}	
@@ -75,24 +80,23 @@ document.addEventListener("click", function(e){
 			
 		}
 	}
-	console.log('массив w-b',arr);
+	console.log('массив arr',arr);
+	console.log('массив arrCopy',arrCopy);
 });
 
 // заготовка на подсчет мойо
 function mojo(a,b,c) {
-	sum = check(a+1,b,c)+check(a-1,b,c)+check(a,b+1,c)+check(a,b-1,c)
+	sum = checkEmpty(a+1,b)+checkEmpty(a-1,b)+checkEmpty(a,b+1)+checkEmpty(a,b-1)
+	sum = sum + checkColour(a+1,b,c)+checkColour(a-1,b,c)+checkColour(a,b+1,c)+checkColour(a,b-1,c)
 	console.log(sum);
 	return sum;
 }
 
-function check(a,b,c){
+function checkEmpty(a,b){
 	if ((a<=num && b<=num)&&(a>=0 && b>=0)) {
-		if (arr[a][b]==fill) {
-			return arr[a][b];
+		if (arrCopy[a][b]==fill) {
+			return arrCopy[a][b];
 		}
-		//else if (arr[a][b]==colour) {
-		//	return mojo(a,b,c)
-		//}
 		else {
 			return 0;
 		}
@@ -102,4 +106,26 @@ function check(a,b,c){
 	}
 }
 
+function checkColour(a,b,c){
+	if ((a<=num && b<=num)&&(a>=0 && b>=0)) {
+		if (arrCopy[a][b]==c) {
+			arrCopy[a][b] = '-';
+			return mojo(a,b,c);
+		}
+		else {
+			return 0;
+		}
+	}
+	else {
+		return 0;
+	}
+}
 
+//функция перезаписи массива (arrCopy = arr - нельзя)
+function returnArray(arr1,arr2){
+	for (n=0; n<(num+1); n++) {
+		for (k=0; k<(num+1); k++) {
+			arr2[n][k] = arr1[n][k];
+		}
+	}
+}
