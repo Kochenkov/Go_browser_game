@@ -1,29 +1,34 @@
-var num = 4;// кол-во клеток
-var wid = 100;//размер клетки
-var ptn = 7;//размер точки
-var stn = 88;//размер камня
-var ind = 100;
-var Left;//переменная для отрисовки камня
-var Top;//переменная для отрисовки камня
+var cellNumber = 4;// кол-во клеток - num
+var cellSize = 100;//размер клетки - wid
+var pointSize = 7;//размер точки - ptn
+var stoneSize = 88;//размер камня - stn
+var boardPozition = 100; // -ind
+var drawStoneLeft;//переменная для отрисовки камня -Left
+var drawStoneTop;//переменная для отрисовки камня -Top
 var white = 'w';
-var black = 'b'
+var black = 'b';
 var colour = white;
+//???
 var arr = new Array(num+1);
 var arrCopy = new Array(num+1);
 var fill = 1; //используетсяв check, как число
 
 
 // рисовка поля
-for (j=0; j<num; j++) {
-	for (i=0; i<num; i++) {
+for (i=0; i<num; i++) {
+	for (j=0; j<num; j++) {
 		var square = document.createElement('img');
 		square.src = 'images/square.png';
 		square.style.position = 'absolute';
-		square.style.left = ind+ i*(wid-1)  + 'px';
-		square.style.top = ind+ j*(wid-1) + 'px';
+		square.style.left = boardPozition + j*(cellSize -1)  + 'px';
+		square.style.top = boardPozition + i*(cellSize -1) + 'px';
 		document.getElementById('div1').appendChild(square);
 	}		
 }
+
+// перепроверитьто что сверху, и идти ниже
+
+
 // рисовка точек
 for (j=0; j<(num+1); j++) {
 	//наполняем массив массивами (почему в этом цикле? а хрен его знает - просто для экономии)
